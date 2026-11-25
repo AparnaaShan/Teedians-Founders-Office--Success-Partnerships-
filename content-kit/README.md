@@ -13,11 +13,11 @@ What works best: real stories with faces and names (events, weekly wraps, mentor
 | Day | Instagram | LinkedIn |
 |---|---|---|
 | Mon, ~8:40 AM | Weekly wrap carousel (Mon to Sun, story style) | Weekly wrap as a PDF document |
-| Tue, ~7 to 8 PM | Reel (reminder, sound added in the app) | |
+| Tue, ~7 to 8 PM | Reel (automatic, with our music) | |
 | Wed, ~9 AM | | A reel as native video, with music |
-| Thu, ~7 to 8 PM | Reel (reminder) | |
+| Thu, ~7 to 8 PM | Reel (automatic, with our music) | |
 | Fri, ~9 AM | Carousel: mentor notes or tips | A reel as native video, with music |
-| Sat, ~7 to 8 PM | Reel (reminder) | |
+| Sat, ~7 to 8 PM | Reel (automatic, with our music) | |
 
 Use minutes that aren't on the hour or half hour (7:12, 7:18, 8:42).
 
@@ -43,8 +43,7 @@ Use minutes that aren't on the hour or half hour (7:12, 7:18, 8:42).
 
 - 1080 x 1920, 30 fps, 15 to 30 seconds. The hook lands in the first 2 seconds. Keep text out of the top 200 px and bottom 360 px.
 - Write a build script like examples/*.py: define scenes, build the page with kit.page(), then kit.run(). `python3 build.py check 2.5 6.0` draws still frames to look at first; `python3 build.py` films every scene and joins them into one mp4 with a silent audio track.
-- Instagram gets the silent version: the trending sound is added in the Instagram app.
-- LinkedIn gets a version with music: `python3 music.py <duration> <cut1,cut2,...> music.wav`, then mux it in with ffmpeg (`-c:v copy`, `loudnorm=I=-15:TP=-1.5`).
+- Instagram and LinkedIn both get the version with music: `python3 music.py <duration> <cut1,cut2,...> music.wav`, then mux it in with ffmpeg (`-map 0:v -map 1:a -c:v copy`, `loudnorm=I=-15:TP=-1.5`). Put whooshes only on the big scene changes, not on every fast cut. Save it as reel_music.mp4; keep the silent reel.mp4 too.
 - Never download or embed songs from the internet.
 
 ## Carousels (carousels/)
@@ -61,7 +60,8 @@ Reels go under instagram/reels/<yyyy-mm-dd-slug>/, weekly wraps under weekly-wra
 ## Buffer
 
 - Organization 6ad79d92b741e310cfb32843. Channels: Instagram 6aea13a8e29c69a1714d407e, LinkedIn page 6aeb7a38e29c69a171610779, X 6aeb6c91e29c69a17160307b.
-- Instagram reels: schedulingType "notification" (Buffer reminds Aparnaa to post, so she can add a trending sound), metadata.instagram type "reel", shouldShareToFeed true.
+- Instagram reels: schedulingType "automatic" with reel_music.mp4, metadata.instagram type "reel", shouldShareToFeed true.
+- Never use "notification" (reminder) posts. No phone is linked to the Buffer account, so Buffer can't send the reminder and the post fails with "trouble sending notifications to your mobile device" (this happened on 25 Nov). Only switch back if Aparnaa says the Buffer app is linked on her phone.
 - Carousels and LinkedIn posts: schedulingType "automatic".
 - Free plan: about 10 scheduled posts at a time, and no LinkedIn first comment. If Buffer refuses, keep the rest for the next run.
 - The @teedians.community account is a business account, so many trending songs aren't available until it switches to a creator account.
